@@ -1,0 +1,21 @@
+version: '3'
+services:
+  database:
+    image: postgres
+    ports:
+    - 6432:5432
+    environment:
+      POSTGRES_DB: asmodeus
+      POSTGRES_USER: asmodeus
+      POSTGRES_PASSWORD: asmodeus
+  service:
+    build: .
+    ports:
+    - 9090:8080
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://database/asmodeus
+      SPRING_DATASOURCE_USERNAME: asmodeus
+      SPRING_DATASOURCE_PASSWORD: asmodeus
+      SERVER_SERVLET_CONTEXT_PATH: /asmodeus/api
+    depends_on:
+    - database
